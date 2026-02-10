@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+
+<style type="text/css">
+/* SLIDER */
+#slider {
+	width: 600px;
+	height: 300px;
+	margin: 40px auto;
+	position: relative;
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px #000000;
+}
+
+#slider img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+}
+
+#slider img.activa {
+	opacity: 1;
+}
+
+/* BOTONES */
+.slider-btn {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: rgba(0,0,0,0.5);
+	color: #FFFFFF;
+	border: none;
+	font-size: 20px;
+	padding: 10px;
+	cursor: pointer;
+	border-radius: 50%;
+	z-index: 10;
+}
+
+#prev {
+	left: 10px;
+}
+
+#next {
+	right: 10px;
+}
+</style>
+
+
+<style type="text/css">
+#contador-visitas {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	background-color: #000000;
+	color: #FFFFFF;
+	padding: 8px 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+	border-radius: 5px;
+	opacity: 0.8;
+}
+</style>
+
+<meta http-equiv="Content-Language" content="es" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>index</title>
+<script type="text/javascript">
+<!--
+function FP_preloadImgs() {//v1.0
+ var d=document,a=arguments; if(!d.FP_imgs) d.FP_imgs=new Array();
+ for(var i=0; i<a.length; i++) { d.FP_imgs[i]=new Image; d.FP_imgs[i].src=a[i]; }
+}
+
+function FP_swapImg() {//v1.0
+ var doc=document,args=arguments,elm,n; doc.$imgSwaps=new Array(); for(n=2; n<args.length;
+ n+=2) { elm=FP_getObjectByID(args[n]); if(elm) { doc.$imgSwaps[doc.$imgSwaps.length]=elm;
+ elm.$src=elm.src; elm.src=args[n+1]; } }
+}
+
+function FP_getObjectByID(id,o) {//v1.0
+ var c,el,els,f,m,n; if(!o)o=document; if(o.getElementById) el=o.getElementById(id);
+ else if(o.layers) c=o.layers; else if(o.all) el=o.all[id]; if(el) return el;
+ if(o.id==id || o.name==id) return o; if(o.childNodes) c=o.childNodes; if(c)
+ for(n=0; n<c.length; n++) { el=FP_getObjectByID(id,c[n]); if(el) return el; }
+ f=o.forms; if(f) for(n=0; n<f.length; n++) { els=f[n].elements;
+ for(m=0; m<els.length; m++){ el=FP_getObjectByID(id,els[n]); if(el) return el; } }
+ return null;
+}
+// -->
+</script>
+</head>
+
+<script type="text/javascript">
+	// CONTADOR DE VISITAS
+	let visitas = localStorage.getItem("contadorVisitas");
+	visitas = visitas ? parseInt(visitas) + 1 : 1;
+	localStorage.setItem("contadorVisitas", visitas);
+	document.getElementById("visitas").innerHTML = visitas;
+
+	// RELOJ EN TIEMPO REAL
+	function actualizarFechaHora() {
+		let ahora = new Date();
+		let fechaHora = ahora.toLocaleString("es-ES");
+		document.getElementById("fechaHora").innerHTML = fechaHora;
+	}
+
+	// Actualizar cada segundo
+	actualizarFechaHora();
+	setInterval(actualizarFechaHora, 1000);
+</script>
+
+<script type="text/javascript">
+window.onload = function () {
+
+	let indice = 0;
+	const imagenes = document.querySelectorAll("#slider img");
+	const btnNext = document.getElementById("next");
+	const btnPrev = document.getElementById("prev");
+
+	function mostrarImagen(i) {
+		for (let j = 0; j < imagenes.length; j++) {
+			imagenes[j].className = "";
+		}
+		imagenes[i].className = "activa";
+	}
+
+	btnNext.onclick = function () {
+		indice = (indice + 1) % imagenes.length;
+		mostrarImagen(indice);
+	};
+
+	btnPrev.onclick = function () {
+		indice = (indice - 1 + imagenes.length) % imagenes.length;
+		mostrarImagen(indice);
+	};
+
+	// Auto slider
+	setInterval(function () {
+		indice = (indice + 1) % imagenes.length;
+		mostrarImagen(indice);
+	}, 4000);
+};
+</script>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+if (params.get("enviado") === "1") {
+    const foro = document.getElementById("mensajesForo");
+
+    foro.innerHTML = `
+        <div style="border:1px solid #ccc; padding:10px; border-radius:5px;">
+            <strong>Mensaje enviado correctamente</strong>
+            <p>Gracias por participar en el foro.</p>
+        </div>
+    `;
+}
+</script>
+
+
+<body style="background-color: #1A4A5A" onload="FP_preloadImgs(/*url*/'button14.gif',/*url*/'button15.gif')">
+<p><a href="index.htm">
+<img style="border: 0" id="img1" src="button13.gif" height="20" width="100" alt="INICIO" onmouseover="FP_swapImg(1,0,/*id*/'img1',/*url*/'button14.gif')" onmouseout="FP_swapImg(0,0,/*id*/'img1',/*url*/'button13.gif')" onmousedown="FP_swapImg(1,0,/*id*/'img1',/*url*/'button15.gif')" onmouseup="FP_swapImg(0,0,/*id*/'img1',/*url*/'button14.gif')" /><!-- MSComment="ibutton" fp-style="fp-btn: Glow Capsule 7; fp-transparent: 1" fp-title="INICIO" --></a><a href="index.htm"></a></p>
+<div style="width:600px; margin:50px auto; background:#ffffff; padding:20px; border-radius:8px;">
+	<h2>Foro de preguntas</h2>
+
+	<form action="https://formsubmit.co/al.pedronicolas.jimenezyebenes@vbl.fundacioneducere.es" method="POST">
+
+    	<input type="hidden" name="_subject" value="Nuevo comentario desde tu web">
+    	<input type="hidden" name="_captcha" value="false">
+    	<input type="hidden" name="_next" value="index.htm?enviado=1">
+
+    	<label>Nombre:</label><br>
+    	<input type="text" name="nombre" required style="width:100%;"><br><br>
+
+    	<label>Email:</label><br>
+    	<input type="email" name="email" required style="width:100%;"><br><br>
+
+    	<label>Comentario:</label><br>
+    	<textarea name="comentario" required rows="6" style="width:100%;"></textarea><br><br>
+
+    	<button type="submit">Enviar comentario</button>
+	</form>
+</div>
+<div id="mensajesForo"></div>
+<div id="slider">
+	<img src="ia1.jpg" class="activa" />
+	<img src="ia2.jpg" />
+	<img src="ia3.jpg" />
+
+	<button id="prev" class="slider-btn">&#10094;</button>
+	<button id="next" class="slider-btn">&#10095;</button>
+</div>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,346 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+
+<style type="text/css">
+#contador-visitas {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	background-color: #000000;
+	color: #FFFFFF;
+	padding: 8px 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12pt;
+	border-radius: 5px;
+	opacity: 0.8;
+}
+</style>
+
+<meta http-equiv="Content-Language" content="es" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>index</title>
+<style type="text/css">
+.style2 {
+	color: #FFFFFF;
+	text-align: center;
+}
+.style4 {
+	text-align: center;
+}
+.style5 {
+	color: #FFFFFF;
+	text-align: center;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 30pt;
+}
+.style6 {
+	color: #FFFFFF;
+}
+.style7 {
+	line-height: 150%;
+	text-align: justify;
+}
+.style8 {
+	text-decoration: none;
+}
+.style9 {
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 34pt;
+}
+</style>
+<style>
+/* SLIDER DE FONDO */
+body {
+	margin: 0;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	animation: fondoSlider 30s infinite;
+}
+
+/* Animación con difuminado */
+@keyframes fondoSlider {
+	0% {
+		background-image: url("int1.jpg");
+		opacity: 1;
+	}
+	20% {
+		background-image: url("int2.jpg");
+	}
+	40% {
+		background-image: url("int3.jpg");
+	}
+	60% {
+		background-image: url("int4.jpg");
+	}
+	80% {
+		background-image: url("int5.jpg");
+	}
+	100% {
+		background-image: url("int1.jpg");
+	}
+}
+</style>
+<style>
+/* MENÚ DESPLEGABLE FUNCIONALIDADES */
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.9);
+	min-width: 200px;
+	z-index: 1000;
+	border-radius: 5px;
+}
+
+.dropdown-content a {
+	color: #FFFFFF;
+	padding: 10px;
+	text-decoration: none;
+	display: block;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.dropdown-content a:hover {
+	background-color: #444444;
+}
+
+/* Mostrar el menú al pasar el ratón */
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+</style>
+<style>
+/* FONDO OSCURO */
+.overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 2000;
+	animation: fadeIn 0.4s ease;
+}
+
+/* CONTENEDOR CON ANIMACIÓN */
+.overlay-content {
+	background-color: rgba(0, 0, 0, 0.65); /* oscuro + transparente */
+	color: #FFFFFF;
+	width: 70%;
+	margin: 8% auto;
+	padding: 30px;
+	border-radius: 10px;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 1.6;
+
+	animation: zoomIn 0.4s ease;
+}
+/* BOTÓN CERRAR */
+.cerrar {
+	float: right;
+	cursor: pointer;
+	font-size: 18px;
+	color: #FFFFFF;
+}
+
+/* ANIMACIONES */
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+	from {
+		transform: scale(0.7);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+</style>
+
+</head>
+<div id="contador-visitas">
+	Visitas: <span id="visitas">0</span><br />
+	Fecha y hora: <span id="fechaHora"></span>
+</div>
+
+<script type="text/javascript">
+	// CONTADOR DE VISITAS
+	let visitas = localStorage.getItem("contadorVisitas");
+	visitas = visitas ? parseInt(visitas) + 1 : 1;
+	localStorage.setItem("contadorVisitas", visitas);
+	document.getElementById("visitas").innerHTML = visitas;
+
+	// RELOJ EN TIEMPO REAL
+	function actualizarFechaHora() {
+		let ahora = new Date();
+		let fechaHora = ahora.toLocaleString("es-ES");
+		document.getElementById("fechaHora").innerHTML = fechaHora;
+	}
+
+	// Actualizar cada segundo
+	actualizarFechaHora();
+	setInterval(actualizarFechaHora, 1000);
+</script>
+<script>
+function mostrar(tipo) {
+	let contenido = "";
+
+	switch (tipo) {
+		case "video":
+			contenido = "<h2>Videoconferencias</h2><p>Permiten la comunicación en tiempo real mediante audio y video a través de Internet. Se utilizan en educación, trabajo remoto y reuniones virtuales.</p>";
+			break;
+		case "compras":
+			contenido = "<h2>Compras</h2><p>El comercio electrónico permite adquirir productos y servicios desde cualquier lugar, usando plataformas digitales seguras.</p>";
+			break;
+		case "juegos":
+			contenido = "<h2>Juegos</h2><p>Internet permite jugar en línea con personas de todo el mundo, fomentando la interacción y la competencia.</p>";
+			break;
+		case "chat":
+			contenido = "<h2>Chat</h2><p>Los servicios de mensajería instantánea permiten la comunicación escrita, rápida y directa entre usuarios.</p>";
+			break;
+		case "redes":
+			contenido = "<h2>Redes sociales</h2><p>Plataformas digitales que facilitan la interacción, el intercambio de información y la creación de comunidades.</p>";
+			break;
+		case "streaming":
+			contenido = "<h2>Streaming</h2><p>Permite reproducir contenido multimedia en tiempo real sin necesidad de descargarlo.</p>";
+			break;
+		case "ia":
+			contenido = "<h2>Inteligencia Artificial</h2><p>La IA analiza datos y automatiza procesos, mejorando servicios como asistentes virtuales y recomendaciones.</p>";
+			break;
+		case "buscadores":
+			contenido = "<h2>Buscadores</h2><p>Herramientas que permiten encontrar información en Internet de forma rápida y eficiente.</p>";
+			break;
+	}
+
+	document.getElementById("texto").innerHTML = contenido;
+	document.getElementById("overlay").style.display = "block";
+}
+
+function cerrar() {
+	let overlay = document.getElementById("overlay");
+	overlay.style.animation = "fadeIn 0.4s ease reverse";
+	setTimeout(() => {
+		overlay.style.display = "none";
+		overlay.style.animation = "fadeIn 0.4s ease";
+	}, 400);
+}
+</script>
+<div id="overlay" class="overlay">
+	<div class="overlay-content">
+		<span class="cerrar" onclick="cerrar()">✖</span>
+		<div id="texto"></div>
+	</div>
+</div>
+
+<body>
+
+<table style="width: 1366px; height: 940px" align="center">
+	<tr>
+		<td style="height: 130px;" class="style9" colspan="10"><strong>INTERNET</strong></td>
+	</tr>
+	<tr>
+		<td class="style2" style="width: 292px; height: 124px">Pedro Nicolás
+		<br />
+		Jiménez Yébenes</td>
+		<td class="style2" style="width: 199px; height: 124px">
+		<a href="DEFINICION.htm" class="style8"><span class="style6">DEFINICIÓN</span></a></td>
+		<td class="style2" style="width: 136px; height: 124px">
+		<a href="HISTORIA.htm" class="style8"><span class="style6">HISTORIA</span></a></td>
+		<td class="style2" style="height: 124px">
+		<a href="TAR%20RED%20Y%20MODEM.htm" class="style8"><span class="style6">TARJETA RED<br />
+		Y<br />
+		MÓDEM</span></a></td>
+		<td class="style2" style="height: 124px">
+		<a href="TIPOS%20DE%20CONEXION.htm" class="style8"><span class="style6">TIPOS DE CONEXIÓN</span></a></td>
+		<td class="style2" style="height: 124px">
+		<a href="NAVEGADORES.htm" class="style8"><span class="style6">NAVEGADORES</span></a></td>
+		<td class="style2" style="height: 124px">
+		<a href="PROTOCOLOS.htm" class="style8"><span class="style6">PROTOCOLOS</span></a></td>
+		<td class="style2" style="width: 146px; height: 124px">
+		<a href="PAGWEB.htm" class="style8"><span class="style6">PÁGINAS<br />
+		WEB</span></a></td>
+		<td class="style2" style="width: 174px; height: 124px">
+	<div class="dropdown">
+		<span class="style6">FUNCIONALIDADES</span>
+		<div class="dropdown-content">
+		<a href="#" onclick="mostrar('video')">Videoconferencias</a>
+		<a href="#" onclick="mostrar('compras')">Compras</a>
+		<a href="#" onclick="mostrar('juegos')">Juegos</a>
+		<a href="#" onclick="mostrar('chat')">Chat</a>
+		<a href="#" onclick="mostrar('redes')">Redes sociales</a>
+		<a href="#" onclick="mostrar('streaming')">Streaming</a>
+		<a href="#" onclick="mostrar('ia')">IA</a>
+		<a href="#" onclick="mostrar('buscadores')">Buscadores</a>
+	</div>
+	</div>
+</td>
+		<td class="style2" style="height: 124px">
+		<a href="PRIVACIDADYSEG.htm" class="style8"><span class="style6">PRIVACIDAD<br />
+		Y<br />
+		SEGURIDAD</span></a></td>
+	</tr>
+	<tr>
+		<td colspan="3" class="style4" style="height: 180px">
+		<img alt="" src="internet_27.jpg" width="450" height="338" /></td>
+		<td colspan="3" style="width: 450px; height: 0">
+		<img alt="" src="glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg" width="450" height="338" /></td>
+		<td style="width: 450px; height: 180px;" colspan="4">
+		<img alt="" src="internet.jpg" width="450" height="337" /></td>
+	</tr>
+	<tr>
+		<td style="width: 292px; height: 21px;"></td>
+		<td style="width: 199px; height: 21px;"></td>
+		<td style="width: 136px; height: 21px;"></td>
+		<td style="height: 21px"></td>
+		<td style="height: 21px"></td>
+		<td style="height: 21px;"></td>
+		<td style="height: 21px;"></td>
+		<td style="width: 146px; height: 21px;"></td>
+		<td style="width: 174px; height: 21px;"></td>
+		<td style="height: 21px;"></td>
+	</tr>
+	<tr>
+		<td style="height: 85px;" colspan="10" class="style5">
+		<p class="style4"><strong>
+		INTRODUCCIÓN</strong></p>
+		</td>
+	</tr>
+	<tr>
+		<td style="height: 113px; width: 0;" colspan="10" class="style6">
+		<p class="style7">Internet es una red global de computadoras 
+		interconectadas que permite la comunicación a través de protocolos 
+		estándar. Su origen se remonta a la década de 1960, con proyectos como 
+		ARPANET, financiado por el Departamento de Defensa de EE. UU., que 
+		utilizaba el conmutado de paquetes para transmitir datos. Desde 
+		entonces, ha evolucionado mediante la contribución de diversos 
+		investigadores y organizaciones, dando lugar a una red más amplia y 
+		sofisticada, habilitando el intercambio de información y el desarrollo 
+		de servicios y aplicaciones innovadoras.</p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3" class="style2">
+		<a href="TRABAJO%20DE%20EVALUACIÓN%202025%20INTERNET%20VÁLIDO.docx" class="style8">
+		<span class="style6">TRABAJO</span></a></td>
+		<td colspan="3" class="style2"><a href="FORO.htm" class="style8">
+		<span class="style6">FORO</span></a></td>
+		<td colspan="4" class="style2">COMENTARIOS</td>
+	</tr>
+	</table>
+
+</body>
+
+</html>
